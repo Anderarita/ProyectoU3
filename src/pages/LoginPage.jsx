@@ -50,7 +50,8 @@ export const LoginPage = () => {
                 }
 
                 const result = await response.json();
-                login(result.data)
+                login(result.data);
+                
                 navigate('/redsocial');
             } catch (error) {
                 console.log('Error al iniciar sesion', error);
