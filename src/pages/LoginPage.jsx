@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
 import { InputEmailValidations } from '../validations/input-email';
+import { useContext, useState } from 'react';
 import { InputRequiredValidation } from '../validations/input-required';
 import { Errors } from '../Components';
+import { constants } from '../helpers/constants';
 
 export const LoginPage = () => {
     const [loginForm, setLogin] = useState({
@@ -12,6 +13,8 @@ export const LoginPage = () => {
     });
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
+
+    const { API_URL } = constants();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,8 +39,9 @@ export const LoginPage = () => {
         setErrors(newErrors);
 
         if (errors.length === 0) {
+            console.log('no hay errores')
             try {
-                const response = await fetch('https://localhost:7074/api/create/login', {
+                const response = await fetch(`${API_URL}/api/login/init`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -46,22 +50,20 @@ export const LoginPage = () => {
                 });
 
                 if (!response.ok) {
-                    throw new Error('Error al inicio de sesion');
+                    throw new Error('Error al iniciar sesion');
                 }
 
                 const result = await response.json();
                 login(result.data);
-                
-                navigate('/redsocial');
-            } catch (error) {
-                console.log('Error al iniciar sesion', error);
-            }
 
+            } catch (error) {
+                console.log(error);
+            }
         }
 
     }
 
-    
+
 
     return (
         <div className="h-screen flex items-center justify-center bg-gray-800">
