@@ -5,7 +5,9 @@ export const LogoutButton = () => {
 
     const handleLogOut = () =>{
         console.log('Click en salir2')
-        navigate( "/init",  { replace: true });
+        navigate( "/",  { replace: true });
+
+        localStorage.removeItem('user');
     }
     return (
     <div className="relative">

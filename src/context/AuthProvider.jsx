@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
   
     const login = (user) => {
       localStorage.setItem('user', JSON.stringify(user));
-      navigate('/redSocial');
+      //navigate('/redSocial');
     }
   
     const logout = () => {

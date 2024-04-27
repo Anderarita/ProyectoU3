@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import { InputRequiredValidation } from '../validations/input-required';
 import { Errors } from '../Components';
 import { constants } from '../helpers/constants';
+import { AuthContext } from '../context';
 
 export const LoginPage = () => {
     const [loginForm, setLogin] = useState({
@@ -13,6 +14,7 @@ export const LoginPage = () => {
     });
     const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
 
     const { API_URL } = constants();
 
@@ -38,15 +40,15 @@ export const LoginPage = () => {
 
         setErrors(newErrors);
 
-        if (errors.length === 0) {
-            console.log('no hay errores')
-            try {
-                const response = await fetch(`${API_URL}/api/login/init`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ loginForm })
+        
+        try {
+            const response = await fetch(`https://localhost:7074/api/login/init`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                        
+                 },
+                body: JSON.stringify(loginForm)
                 });
 
                 if (!response.ok) {
@@ -55,11 +57,12 @@ export const LoginPage = () => {
 
                 const result = await response.json();
                 login(result.data);
+                navigate('/redSocial');
 
-            } catch (error) {
+        } catch (error) {
                 console.log(error);
-            }
         }
+    
 
     }
 

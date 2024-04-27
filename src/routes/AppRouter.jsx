@@ -40,10 +40,10 @@ import { PublicRoute } from "./PublicRoute"
 export const AppRouter = () => {
   return (
     <Routes>
-        <Route path="/redSocial" element={<PublicRoute><RedSocialPage /></PublicRoute>} />
-        <Route path="/login" element={<PrivateRoute><LoginPage /></PrivateRoute>} />
-        <Route path="/register" element={<PrivateRoute><UserForm /></PrivateRoute>} />
-        <Route path="/" element={<PrivateRoute><InitPage /></PrivateRoute>} />
+        <Route path="/redSocial" element={<PrivateRoute><RedSocialPage /></PrivateRoute>} />
+        <Route path="/login" element={<PublicRoute>e<LoginPage /></PublicRoute>} />
+        <Route path="/register" element={<PublicRoute><UserForm /></PublicRoute>} />
+        <Route path="/" element={<PublicRoute><InitPage /></PublicRoute>} />
     </Routes>
   )
 }

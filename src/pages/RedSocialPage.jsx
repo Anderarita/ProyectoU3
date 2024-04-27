@@ -1,7 +1,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Navbar, TweetList } from "../Components";
-import axios from "axios";
 
 export const RedSocialPage = () => {
   const [tweets, setTweets] = useState([]);
@@ -10,18 +9,7 @@ export const RedSocialPage = () => {
     setTweets([newTweet, ...tweets]);
   };
 
-  /*useEffect(() => {
-    const fetchTweets = async () => {
-      try {
-        const response = await axios.get("https://localhost:7074/api/publication/user");
-        setTweets(response.data);
-      } catch (error) {
-        console.error("Error fetching tweets:", error);
-      }
-    };
 
-    fetchTweets();
-  }, []);*/
 
   return (
     <div className="flex-auto h-screen bg-gray-700 overflow-hidden ">
