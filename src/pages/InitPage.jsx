@@ -23,26 +23,3 @@ export const InitPage = () => {
     );
 };
 
-/*const handleSubmit = (e) => {
-    e.preventDefault();
-    fetch('https://api.example.com/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-    })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the response data
-            console.log(data);
-            // Redirect to '/redsocial'
-            navigate('/redsocial');
-        })
-        .catch(error => {
-            // Handle any errors
-            console.error(error);
-        });
-    
-}*/
-

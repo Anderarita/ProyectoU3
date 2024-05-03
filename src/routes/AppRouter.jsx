@@ -1,41 +1,10 @@
-/*import { Route, Routes } from "react-router-dom"
-import { InitPage, LoginPage, RedSocialPage, UserForm } from "../pages"
-import { PrivateRoute } from "./PrivateRoute"
-import { PublicRoute } from "./PublicRoute"
-
-export const AppRouter = () => {
-  return (
-    <>
-        <Routes>
-            <Route path='/redSocial' element={
-                <PublicRoute>
-                    <RedSocialPage />
-                </PublicRoute>
-            } />
-            <Route path="/" element={
-                <PrivateRoute>
-                    <InitPage />
-                </PrivateRoute>
-            } />
-            <Route path="/register" element={
-                <PrivateRoute>
-                    <UserForm />
-                </PrivateRoute>
-            } />
-            <Route path="/login" element={
-                <PrivateRoute>
-                    <LoginPage />
-                </PrivateRoute>
-            } />
-        </Routes>
-    </>
-  )
-}*/
-
 import { Route, Routes } from "react-router-dom"
-import { InitPage, LoginPage, RedSocialPage, UserForm } from "../pages"
+import { HistorialPage, InitPage, LoginPage, RedSocialPage, UserForm, UserProfile, } from "../pages"
 import { PrivateRoute } from "./PrivateRoute"
 import { PublicRoute } from "./PublicRoute"
+import ListUser from "../pages/ListUser"
+
+
 
 export const AppRouter = () => {
   return (
@@ -44,6 +13,9 @@ export const AppRouter = () => {
         <Route path="/login" element={<PublicRoute>e<LoginPage /></PublicRoute>} />
         <Route path="/register" element={<PublicRoute><UserForm /></PublicRoute>} />
         <Route path="/" element={<PublicRoute><InitPage /></PublicRoute>} />
+        <Route path="/List" element={<PrivateRoute><ListUser/></PrivateRoute>}/>
+        <Route path="/Perfil" element={<PrivateRoute><UserProfile/></PrivateRoute>}/>
+        <Route path="/historial" element={<PrivateRoute><HistorialPage/></PrivateRoute>}/>
     </Routes>
   )
 }

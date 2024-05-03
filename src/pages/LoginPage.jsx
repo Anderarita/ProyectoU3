@@ -6,6 +6,8 @@ import { Errors } from '../Components';
 import { constants } from '../helpers/constants';
 import { AuthContext } from '../context';
 
+
+
 export const LoginPage = () => {
     const [loginForm, setLogin] = useState({
         email: '',
@@ -45,8 +47,9 @@ export const LoginPage = () => {
             const response = await fetch(`https://localhost:7074/api/login/init`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
-                        
+                    'Content-Type': 'application/json',
+                   //'Authorization': `Bearer ${token}`
+   
                  },
                 body: JSON.stringify(loginForm)
                 });
@@ -56,6 +59,7 @@ export const LoginPage = () => {
                 }
 
                 const result = await response.json();
+                localStorage.setItem('token', result.token);
                 login(result.data);
                 navigate('/redSocial');
 
@@ -66,22 +70,23 @@ export const LoginPage = () => {
 
     }
 
-
-
+    const checkboxClasses = "form-checkbox text-blue-600 rounded"
+    const linkClasses = "text-blue-500 hover:text-blue-600"
+    
     return (
         <div className="h-screen flex items-center justify-center bg-gray-800">
             <div className="sm:w-96 sm:m-auto mx-5 mb-5">
-                <h1 className="font-bold text-center text-4xl text-teal-500 mb-5">
-                    Lista de Tareas
+                <h1 className="font-bold text-center text-4xl text-red-500 mb-5">
+                    Inicio de Sesión
                 </h1>
-                <form onSubmit={handleSubmit} className="bg-white p-10 rounded-lg shadow space-y-6">
+                <form onSubmit={handleSubmit} className="bg-black p-10 rounded-lg shadow space-y-6">
                     <h2 className="font-bold text-gray-600 text-xl text-center mb-4">
                         Ingrese a su cuenta
                     </h2>
 
                     {errors.length > 0 ? <Errors errorList={errors} /> : null}
 
-                    <div className="flex flex-col space-y-2 border-b-2 border-teal-500">
+                    <div className="flex flex-col space-y-2 border-b-2 border-red-500">
                         <label htmlFor="email" className="text-gray-700">Correo Electrónico</label>
                         <input
                             type="email"
@@ -96,7 +101,7 @@ export const LoginPage = () => {
                         />
                     </div>
 
-                    <div className="flex flex-col space-y-1 border-b-2 border-teal-500">
+                    <div className="flex flex-col space-y-1 border-b-2 border-red-500">
                         <label htmlFor="password" className="text-gray-700">Contraseña</label>
                         <input
                             type="password"
@@ -115,17 +120,26 @@ export const LoginPage = () => {
                     <div className="flex flex-col items-center">
                         <button
                             type="submit"
-                            className="bg-teal-500 text-white font-bold rounded focus:outline-none shadow hover:bg-teal-700 transition-colors
+                            className="bg-red-500 text-white font-bold rounded focus:outline-none shadow hover:bg-red-700 transition-colors
                             px-5 py-2 text-center w-full"
                         >
                             Iniciar Sesión
                         </button>
                     </div>
+                    <div className='text-center text-zinc-400 text-xs mt-4'>
+                    <p><a href="#" className='{linkClasses}'>¿Olvidaste tu contraseña?</a></p>
+                    <div className="mt-4">
+                        <label className="inline-flex items-center" >
+                        <input type="checkbox" className={checkboxClasses}/>
+                        <span className="ml-2 text-white">Recuérdame</span>
+                        </label>
+                    </div>
+                    <p className="mt-4"><a onClick={() => navigate('/register')} className={linkClasses}>¿Primera vez en? Suscríbete ahora.</a></p>
+                </div>
                 </form>
             </div>
         </div>
     );
 };
-
 
 

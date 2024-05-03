@@ -2,21 +2,23 @@ import { useState } from 'react';
 import { LogoutButton } from './LogoutButton';
 import { useNavigate } from 'react-router-dom';
 
-export const Navbar = ({ addTweet }) => {
+export const Navbar = ( ) => {
   const [tweetContent, setTweetContent] = useState({ descripcion: '' }); // Inicializa como objeto
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [fetched, setFetched] = useState(true);
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')) || {});
 
   const handleTweetSubmit = async () => {
+   
     if (!user.token) {
       console.error('Token no disponible');
       return;
     }
     console.log("Nuevo tweet:", tweetContent.descripcion);
     console.log("Contenido del tweet a enviar:", JSON.stringify({ content: tweetContent.descripcion }));
-
+  
     try {
       const response = await fetch('https://localhost:7074/api/publication', {
         method: 'POST',
@@ -31,13 +33,15 @@ export const Navbar = ({ addTweet }) => {
         throw new Error('Algo salió mal con la petición: ' + response.statusText);
       }
       const data = await response.json();
-      addTweet(data);
+      //addNewTweet(data); // Llama a la función pasada como prop para actualizar la lista de tweets
       setTweetContent({ descripcion: '' }); // Resetea el contenido del tweet correctamente
       setIsModalOpen(false);
+      setFetched(true);
     } catch (error) {
       console.error('Error al guardar la publicación:', error);
     }
   };
+  
 
   const handleSearchInputChange = (e) => {
     setSearchQuery(e.target.value);
@@ -51,11 +55,11 @@ export const Navbar = ({ addTweet }) => {
 
   const handleNotiSubmit = () => {
     console.log("Botón de notificaciones pulsado");
-    // Aquí iría la lógica para manejar las notificaciones
+    
   };
 
   return (
-    <nav className="bg-gray-800 p-4 block">
+    <nav className="bg-red-600 p-4 block">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <div className="text-white font-bold mr-4">Logo</div>
@@ -67,7 +71,7 @@ export const Navbar = ({ addTweet }) => {
               onChange={handleSearchInputChange}
               className="text-black px-2 py-1 rounded-md mr-2"
             />
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+            <button type="submit" className="bg-black text-white px-4 py-2 rounded-md">
               Buscar
             </button>
           </form>
@@ -105,14 +109,23 @@ export const Navbar = ({ addTweet }) => {
             )}
           </li>
           <li>
+            <button onClick={() => navigate('/redSocial')} className='text-white'>Inicio</button>
+          </li>
+          <li>
             <button onClick={handleNotiSubmit} className="text-white">
               Notificaciones
             </button>
           </li>
           <li>
-            <a href="#" className="text-white">
+            <button onClick={() => navigate('/Perfil')} className="text-white">
               Perfil
-            </a>
+            </button>
+          </li>
+          <li>
+            <button onClick={() => navigate('/List')} className='text-white'>Sugerencias</button>
+          </li>
+          <li>
+            <button onClick={() => navigate('/historial')} className='text-white'>Historial</button>
           </li>
           <li>
             <LogoutButton />
@@ -122,4 +135,3 @@ export const Navbar = ({ addTweet }) => {
     </nav>
   );
 };
-

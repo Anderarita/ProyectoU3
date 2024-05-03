@@ -5,8 +5,7 @@ export const Notificaciones = () => {
   const [notificaciones, setNotificaciones] = useState([]);
 
   useEffect(() => {
-    // Aquí puedes hacer una solicitud HTTP para obtener las notificaciones del usuario
-    // Por ejemplo, usando Axios
+    
     axios.get('url-de-tu-api/notificaciones')
       .then(response => {
         setNotificaciones(response.data);
